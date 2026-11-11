@@ -1,4 +1,4 @@
-# BUGList
+﻿# BUGList
 
 A per-project bug & TODO list that lives in one `.buglist` file — double-click it, mark things, done.
 
@@ -52,6 +52,7 @@ powershell -ExecutionPolicy Bypass -File install.ps1
 | `Shift` | 已读不修 |
 | `Backspace` | 未处理 |
 | `Del` | 删除 |
+| `Space` | 打开 / 收起详情 |
 | `Esc` | 收起详情 |
 
 点一行展开详情；顶部输入框回车记到上次点的那一栏，也可以直接点「加 BUG / 加 TODO」。

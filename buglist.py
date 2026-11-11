@@ -489,7 +489,7 @@ class BugListWindow:
 
         self.toggle_hint = tk.Label(
             header,
-            text="点一行看详情",
+            text="点一行 / 空格 看详情",
             bg=COLOR["bg"],
             fg=COLOR["dim"],
             font=self.font(9),
@@ -799,7 +799,7 @@ class BugListWindow:
         self.status_line.pack(side="left")
         tk.Label(
             status_row,
-            text="Enter 已修   ·   Shift 已读不修   ·   Backspace 未处理   ·   Del 删除",
+            text="Enter 已修   ·   Shift 已读不修   ·   Backspace 未处理   ·   Del 删除   ·   空格 详情",
             bg=COLOR["bg"],
             fg=COLOR["dim"],
             font=self.font(9),
@@ -815,6 +815,7 @@ class BugListWindow:
         self.root.bind("<KeyPress-Shift_R>", lambda event: self.hotkey_status("wontfix"))
         self.root.bind("<BackSpace>", lambda event: self.hotkey_status("open"))
         self.root.bind("<Delete>", self.hotkey_delete)
+        self.root.bind("<space>", self.toggle_detail)
         self.root.bind("<Escape>", lambda event: self.hide_detail())
         self.root.bind("<Control-n>", lambda event: self.entry.focus_set())
         self.root.bind("<F5>", lambda event: self.reload())
@@ -938,6 +939,26 @@ class BugListWindow:
     def hide_detail(self) -> None:
         self.detail_frame.grid_remove()
         self.detail_open = False
+
+    def toggle_detail(self, event=None):
+        """空格：没展开就展开当前这条，已经展开就收起。"""
+        if self._typing_in_entry():
+            return
+        if self.detail_open:
+            self.hide_detail()
+            return "break"
+        item = self.current_item()
+        if item is None:
+            for kind in KINDS:
+                children = self.trees[kind].get_children()
+                if children:
+                    self.trees[kind].selection_set(children[0])
+                    self.trees[kind].focus(children[0])
+                    item = self.current_item()
+                    break
+        if item:
+            self.populate_detail(item)
+        return "break"
 
     def _render_markup(self, markup: str) -> None:
         widget = self.detail_text
