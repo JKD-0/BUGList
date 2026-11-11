@@ -1,0 +1,35 @@
+{
+  "format": "buglist",
+  "version": 2,
+  "project": "demo",
+  "created": "2026-11-11T10:00:00+08:00",
+  "items": [
+    {
+      "id": "1a2b3c4d",
+      "kind": "bug",
+      "text": "列表滚动时最后一列错位",
+      "detail": "在 `render_row()` 里把列宽写死了，滚动后没有重新计算。\n\n- 复现：窗口拉到最窄\n- 期望：最后一列不压到滚动条\n\n## 原因\n```python\ncolumn_width = 120  # 写死的\n```",
+      "status": "open",
+      "created": "2026-11-11T09:30:00+08:00",
+      "updated": "2026-11-11T09:30:00+08:00"
+    },
+    {
+      "id": "5e6f7a8b",
+      "kind": "bug",
+      "text": "深色模式下输入框光标看不见",
+      "detail": "`insertbackground` 还是默认黑色，改成 `#f0a63c`。",
+      "status": "fixed",
+      "created": "2026-11-11T09:00:00+08:00",
+      "updated": "2026-11-11T09:40:00+08:00"
+    },
+    {
+      "id": "9c0d1e2f",
+      "kind": "todo",
+      "text": "加一个导出 Markdown 的按钮",
+      "detail": "",
+      "status": "open",
+      "created": "2026-11-11T09:10:00+08:00",
+      "updated": "2026-11-11T09:10:00+08:00"
+    }
+  ]
+}
